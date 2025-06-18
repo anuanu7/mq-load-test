@@ -1,1 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE jmeterTestPlan SYSTEM "https://jmeter.apache.org/dtds/testplan.dtd">
+<jmeterTestPlan version="1.2" properties="5.0" jmeter="5.6.2">
+  <hashTree>
+    <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="MQ FSN Load Test with CSV" enabled="true">
+      <stringProp name="TestPlan.comments"/>
+      <boolProp name="TestPlan.functional_mode">false</boolProp>
+      <boolProp name="TestPlan.tearDown_on_shutdown">true</boolProp>
+      <boolProp name="TestPlan.serialize_threadgroups">false</boolProp>
+      <elementProp name="TestPlan.user_defined_variables" elementType="Arguments"/>
+      <stringProp name="TestPlan.user_define_classpath"/>
+    </TestPlan>
+    <hashTree>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="FSN Load Threads" enabled="true">
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" testclass="LoopController" guiclass="LoopControlPanel" enabled="true">
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+          <stringProp name="LoopController.loops">100</stringProp>
+        </elementProp>
+        <stringProp name="ThreadGroup.num_threads">1</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">1</stringProp>
+        <boolProp name="ThreadGroup.scheduler">false</boolProp>
+      </ThreadGroup>
+      <hashTree>
+        <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="Load Payload from CSV" enabled="true">
+          <stringProp name="filename">jmeter/data/payloads.csv</stringProp>
+          <stringProp name="fileEncoding">UTF-8</stringProp>
+          <stringProp name="variableNames">payload</stringProp>
+          <stringProp name="delimiter">,</stringProp>
+          <boolProp name="quotedData">false</boolProp>
+          <boolProp name="recycle">true</boolProp>
+          <boolProp name="stopThread">false</boolProp>
+          <stringProp name="shareMode">all</stringProp>
+        </CSVDataSet>
+        <hashTree/>
+        <JavaSampler guiclass="JavaTestSamplerGui" testclass="JavaSampler" testname="FSN Request" enabled="true">
+          <stringProp name="classname">co.signal.mqmeter.MQClientSampler</stringProp>
+          <elementProp name="arguments" elementType="Arguments">
+            <elementProp name="mq_manager" elementType="Argument">
+              <stringProp name="Argument.name">mq_manager</stringProp>
+              <stringProp name="Argument.value">${__P(mq_manager)}</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="mq_queue_put" elementType="Argument">
+              <stringProp name="Argument.name">mq_queue_put</stringProp>
+              <stringProp name="Argument.value">${__P(mq_queue_put)}</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="mq_hostname" elementType="Argument">
+              <stringProp name="Argument.name">mq_hostname</stringProp>
+              <stringProp name="Argument.value">${__P(mq_hostname)}</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="mq_port" elementType="Argument">
+              <stringProp name="Argument.name">mq_port</stringProp>
+              <stringProp name="Argument.value">${__P(mq_port)}</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="mq_channel" elementType="Argument">
+              <stringProp name="Argument.name">mq_channel</stringProp>
+              <stringProp name="Argument.value">${__P(mq_channel)}</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="mq_user_id" elementType="Argument">
+              <stringProp name="Argument.name">mq_user_id</stringProp>
+              <stringProp name="Argument.value">${__P(mq_user_id)}</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="mq_user_password" elementType="Argument">
+              <stringProp name="Argument.name">mq_user_password</stringProp>
+              <stringProp name="Argument.value">${__P(mq_user_password)}</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="mq_use_mqcsp_authentication" elementType="Argument">
+              <stringProp name="Argument.name">mq_use_mqcsp_authentication</stringProp>
+              <stringProp name="Argument.value">${__P(mq_auth,false)}</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="mq_encoding_message" elementType="Argument">
+              <stringProp name="Argument.name">mq_encoding_message</stringProp>
+              <stringProp name="Argument.value">UTF-8</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="mq_message" elementType="Argument">
+              <stringProp name="Argument.name">mq_message</stringProp>
+              <stringProp name="Argument.value">${payload}</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+          </elementProp>
+        </JavaSampler>
+        <hashTree/>
+      </hashTree>
+    </hashTree>
+  </hashTree>
+</jmeterTestPlan>
 placeholder for fsn-request-test.jmx
