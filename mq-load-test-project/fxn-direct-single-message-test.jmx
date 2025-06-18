@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE jmeterTestPlan SYSTEM "https://jmeter.apache.org/dtds/testplan.dtd">
+<jmeterTestPlan version="1.2" properties="5.0" jmeter="5.6.2">
+  <hashTree>
+    <TestPlan guiclass="TestPlanGui" testclass="TestPlan" testname="MQ Direct Test Plan" enabled="true">
+      <stringProp name="TestPlan.comments"/>
+      <boolProp name="TestPlan.functional_mode">false</boolProp>
+      <boolProp name="TestPlan.tearDown_on_shutdown">true</boolProp>
+      <boolProp name="TestPlan.serialize_threadgroups">false</boolProp>
+      <elementProp name="TestPlan.user_defined_variables" elementType="Arguments"/>
+      <stringProp name="TestPlan.user_define_classpath"/>
+    </TestPlan>
+    <hashTree>
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="Single Message Thread" enabled="true">
+        <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
+        <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" enabled="true">
+          <boolProp name="LoopController.continue_forever">false</boolProp>
+          <stringProp name="LoopController.loops">1</stringProp>
+        </elementProp>
+        <stringProp name="ThreadGroup.num_threads">1</stringProp>
+        <stringProp name="ThreadGroup.ramp_time">1</stringProp>
+        <boolProp name="ThreadGroup.scheduler">false</boolProp>
+      </ThreadGroup>
+      <hashTree>
+        <JavaSampler guiclass="JavaTestSamplerGui" testclass="JavaSampler" testname="MQ Test" enabled="true">
+          <stringProp name="classname">co.signal.mqmeter.MQClientSampler</stringProp>
+          <elementProp name="arguments" elementType="Arguments">
+            <elementProp name="mq_manager" elementType="Argument">
+              <stringProp name="Argument.name">mq_manager</stringProp>
+              <stringProp name="Argument.value">RS861AC</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="mq_queue_put" elementType="Argument">
+              <stringProp name="Argument.name">mq_queue_put</stringProp>
+              <stringProp name="Argument.value">BDD.GRP.INT_FSN_WORKFLOW_META.QA</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="mq_hostname" elementType="Argument">
+              <stringProp name="Argument.name">mq_hostname</stringProp>
+              <stringProp name="Argument.value">RBSMQ-RS861AC.server.rbsgrp.net</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="mq_port" elementType="Argument">
+              <stringProp name="Argument.name">mq_port</stringProp>
+              <stringProp name="Argument.value">5111</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="mq_channel" elementType="Argument">
+              <stringProp name="Argument.name">mq_channel</stringProp>
+              <stringProp name="Argument.value">GRP.VNQ.RS861AC.01</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="mq_user_id" elementType="Argument">
+              <stringProp name="Argument.name">mq_user_id</stringProp>
+              <stringProp name="Argument.value"></stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="mq_user_password" elementType="Argument">
+              <stringProp name="Argument.name">mq_user_password</stringProp>
+              <stringProp name="Argument.value"></stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="mq_use_mqcsp_authentication" elementType="Argument">
+              <stringProp name="Argument.name">mq_use_mqcsp_authentication</stringProp>
+              <stringProp name="Argument.value">false</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="mq_encoding_message" elementType="Argument">
+              <stringProp name="Argument.name">mq_encoding_message</stringProp>
+              <stringProp name="Argument.value">UTF-8</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+            <elementProp name="mq_message" elementType="Argument">
+              <stringProp name="Argument.name">mq_message</stringProp>
+              <stringProp name="Argument.value">{&quot;custId&quot;:1064710,&quot;fsnSyntaxErrorsPath&quot;:null,&quot;orgnlPaymentFileNm&quot;:&quot;BDD_OP/PAYMENT_FILES/2025/06/17/INCOMING/NWBKGB2125E.BDD.pain00800108.YDXT0659.PM.XML&quot;,&quot;grpSts&quot;:&quot;ACCP&quot;,&quot;stsRsnInfRsnCd&quot;:&quot;ACCP&quot;,&quot;stsRsnInfAddtlInf&quot;:&quot;File is received and accepted for further process&quot;,&quot;paymentSrcChannel&quot;:&quot;SWIFT&quot;,&quot;fileDataSeq&quot;:305694}</stringProp>
+              <stringProp name="Argument.metadata">=</stringProp>
+            </elementProp>
+          </elementProp>
+        </JavaSampler>
+        <hashTree/>
+        <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
+          <boolProp name="ResultCollector.error_logging">false</boolProp>
+          <objProp>
+            <name>saveConfig</name>
+            <value class="SampleSaveConfiguration">
+              <time>true</time>
+              <latency>true</latency>
+              <timestamp>true</timestamp>
+              <success>true</success>
+              <label>true</label>
+              <code>true</code>
+              <message>true</message>
+              <threadName>true</threadName>
+              <dataType>true</dataType>
+              <encoding>false</encoding>
+              <assertions>true</assertions>
+              <subresults>true</subresults>
+              <responseData>false</responseData>
+              <samplerData>false</samplerData>
+              <xml>false</xml>
+              <fieldNames>true</fieldNames>
+              <responseHeaders>false</responseHeaders>
+              <requestHeaders>false</requestHeaders>
+              <responseDataOnError>false</responseDataOnError>
+              <saveAssertionResultsFailureMessage>true</saveAssertionResultsFailureMessage>
+              <assertionsResultsToSave>0</assertionsResultsToSave>
+              <bytes>true</bytes>
+              <sentBytes>true</sentBytes>
+              <url>true</url>
+              <threadCounts>true</threadCounts>
+              <idleTime>true</idleTime>
+              <connectTime>true</connectTime>
+            </value>
+          </objProp>
+          <stringProp name="filename"></stringProp>
+        </ResultCollector>
+        <hashTree/>
+      </hashTree>
+    </hashTree>
+  </hashTree>
+</jmeterTestPlan>
