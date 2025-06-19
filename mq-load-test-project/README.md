@@ -50,5 +50,11 @@ Loop Count = 100
 
 ➜ Sends 1,000 messages
 
+/results/logs/
+/results/reports/
+*.jtl
+*.bak
+
+
 
 
